@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --charcoal: #121214;
+  --surface: #1a1a1e;
+  --surface-elevated: #242428;
+  --volt: #ccff00;
+  --lime: #a3e635;
+  --foreground: #ffffff;
+  --muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.08);
+  --volt-glow: rgba(204, 255, 0, 0.25);
+}
+
+@theme inline {
+  --color-charcoal: var(--charcoal);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-volt: var(--volt);
+  --color-lime: var(--lime);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-bottom: 2rem;
+  }
+}
+
+body {
+  background: var(--charcoal);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* iOS safe areas */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Subtle grain texture */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Court line pattern */
+.court-pattern {
+  background-image: linear-gradient(
+      90deg,
+      rgba(204, 255, 0, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(rgba(204, 255, 0, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Horizontal snap scroll */
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-x-mandatory > * {
+  scroll-snap-align: start;
+}
+
+/* Desktop scrollbar */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--charcoal);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-elevated);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
